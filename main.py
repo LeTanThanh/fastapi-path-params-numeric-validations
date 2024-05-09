@@ -38,3 +38,25 @@ async def read_item(
 
   return response
 """
+
+# Number validations: greater than and less than or equal
+"""
+@app.get("/items/{id}")
+async def read_item(
+  id: Annotated[
+    int,
+    Path(
+      gt = 0,
+      le = 1_000,
+      description = "The ID of the item to get"
+    )
+  ],
+  q: Annotated[str, Query()]
+):
+  response = {"id": id}
+
+  if q:
+    response.update({"q": q})
+
+  return response
+"""
